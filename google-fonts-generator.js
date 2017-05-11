@@ -80,22 +80,11 @@ function eachFont(font) {
 
 										font.variants[fontStyle] = font.variants[fontStyle] || {};
 										font.variants[fontStyle][fontWeight] = font.variants[fontStyle][fontWeight] || {
-											local: [],
-											url: {}
+										
 										};
 
 										rule.eachDecl('src', function (decl) {
-											postcss.list.comma(decl.value).forEach(function (value) {
-												value.replace(/(local|url)\((.+?)\)/g, function (match, type, path) {
-													if (type === 'local') {
-														if (font.variants[fontStyle][fontWeight].local.indexOf(path) === -1) {
-															font.variants[fontStyle][fontWeight].local.push(path);
-														}
-													} else if (type === 'url') {
-														font.variants[fontStyle][fontWeight].url[format] = path;
-													}
-												});
-											});
+											
 										});
 
 										console.log('Captured', family, fontStyle, fontWeight, 'as', format, '...');
